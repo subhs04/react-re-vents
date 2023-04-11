@@ -3,17 +3,17 @@ import { Segment, Item, List, Button, Icon } from 'semantic-ui-react';
 import EventListAttendee from './EventListAttendee';
 
 
-const EventListItem = () => {
+const EventListItem = ({ event ,selectEvent}) => {
     return (
         <div>
             <Segment.Group>
                 <Segment>
                     <Item.Group>
                         <Item>
-                            <Item.Image size='tiny' circular src='/assets/user.png' />
+                            <Item.Image size='tiny' circular src={event.hostPhotoURL} />
                             <Item.Content>
-                                <Item.Header content='Event Title' />
-                                <Item.Description>Hosted by Subhs </Item.Description>
+                                <Item.Header content={event.title} />
+                                <Item.Description>Hosted by {event.hostedBy}  </Item.Description>
 
                             </Item.Content>
                         </Item>
@@ -21,21 +21,20 @@ const EventListItem = () => {
                 </Segment>
                 <Segment>
                     <span>
-                        <Icon name='clock' />Date
-                        <Icon name='marker' />Venue
+                        <Icon name='clock' />{event.date1}
+                        <Icon name='marker' />{event.venue.address}
                     </span>
                 </Segment>
                 <Segment secondary>
                     <List horizontal>
-                        <EventListAttendee />
-                        <EventListAttendee />
-                        <EventListAttendee />
-                        <EventListAttendee />
+                        {event.attendees.map(
+                            attendee => <EventListAttendee  event={attendee} key={attendee.id}/>
+                        )}
                     </List>
                 </Segment>
                 <Segment clearing>
-                    <div>Event Description</div>
-                    <Button color='teal' floated='right' content='view' />
+                    <div>{event.desscription} </div>
+                    <Button color='teal' floated='right' content='view' onClick={()=>selectEvent(event)} />
                 </Segment>
             </Segment.Group>
         </div>
