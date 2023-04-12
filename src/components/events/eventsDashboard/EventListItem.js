@@ -3,7 +3,7 @@ import { Segment, Item, List, Button, Icon } from 'semantic-ui-react';
 import EventListAttendee from './EventListAttendee';
 
 
-const EventListItem = ({ event ,selectEvent}) => {
+const EventListItem = ({ event, selectEvent, deleteEvent }) => {
     return (
         <div>
             <Segment.Group>
@@ -28,13 +28,14 @@ const EventListItem = ({ event ,selectEvent}) => {
                 <Segment secondary>
                     <List horizontal>
                         {event.attendees.map(
-                            attendee => <EventListAttendee  event={attendee} key={attendee.id}/>
+                            attendee => <EventListAttendee event={attendee} key={attendee.id} />
                         )}
                     </List>
                 </Segment>
                 <Segment clearing>
                     <div>{event.desscription} </div>
-                    <Button color='teal' floated='right' content='view' onClick={()=>selectEvent(event)} />
+                    <Button color='teal' floated='right' content='view' onClick={() => selectEvent(event)} />
+                    <Button color='red' floated='right' content='delete' onClick={() => deleteEvent(event)} />
                 </Segment>
             </Segment.Group>
         </div>
